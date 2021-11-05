@@ -9,7 +9,7 @@ public class DAOFactory {
     private final LibDAO txtBookDAO = new TXTLibDAO();
     private final UserDAO txtUserDAO = new TXTUserDAO();
 
-    private DAOFactory() {
+    public DAOFactory() {
     }
 
     public static DAOFactory getFactoryLink() {

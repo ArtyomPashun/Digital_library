@@ -9,6 +9,9 @@ public class Book implements Serializable {
     private String bookTitle;
     private String authorName;
 
+    public Book() {
+    }
+
     public Book(int bookId, String bookTitle, String authorName) {
         this.bookId = bookId;
         this.bookTitle = bookTitle;

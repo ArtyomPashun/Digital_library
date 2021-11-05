@@ -8,5 +8,4 @@ public interface UserDAO {
     void register(User user) throws DAOException;
 
     void authorize(String login, String password) throws DAOException;
-
 }

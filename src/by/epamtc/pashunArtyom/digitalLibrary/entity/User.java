@@ -9,6 +9,10 @@ public class User implements Serializable, Comparable {
     private String userPassword;
     private UserRole userRole;
 
+    public User() {
+        this.userRole = UserRole.USER;
+    }
+
     public User(String userLogin, String userPassword) {
         this.userLogin = userLogin;
         this.userPassword = userPassword;
