@@ -7,6 +7,8 @@ public interface LibService {
 
     void addBook(Book book) throws ServiceException;
 
+    void removeBook(int bookId) throws ServiceException;
+
     void editBook(Book book) throws ServiceException;
 
     String findBook(String bookTitle) throws ServiceException;

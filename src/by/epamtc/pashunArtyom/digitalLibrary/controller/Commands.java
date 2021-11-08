@@ -10,7 +10,7 @@ import java.util.Map;
 public class Commands {
     private static final Map<CommandName, Command> commands = new HashMap<>();
 
-    public Commands (){
+    public Commands() {
         commands.put(CommandName.ADD_BOOK, new AddBook());
         commands.put(CommandName.EDIT_BOOK, new EditBook());
         commands.put(CommandName.FIND_BOOK, new FindBook());
@@ -19,10 +19,10 @@ public class Commands {
     }
 
     public Command getCommand(String request) {
-        CommandName actions = CommandName.(name);
+        CommandName actions = CommandName.commandName(request);
         Command command;
         if (actions == null) {
-            command = commands.get(Actions.WRONG_REQUEST);
+            command = commands.get(CommandName.WRONG_REQUEST);
         } else {
             command = commands.get(actions);
         }

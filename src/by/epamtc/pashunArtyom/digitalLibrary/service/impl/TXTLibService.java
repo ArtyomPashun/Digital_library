@@ -29,6 +29,17 @@ public class TXTLibService implements LibService {
     }
 
     @Override
+    public void removeBook(int bookId) throws ServiceException {
+        if (bookId <= 0)
+            throw new ServiceException("SERVICE ERROR: incorrect bookId input");
+        try {
+            DAOFactory.getFactoryLink().getTxtBooksDAO().removeBook(bookId);
+        } catch (DAOException | NullPointerException e) {
+            throw new ServiceException("SERVICE ERROR: can not remove this book or incorrect bookId input");
+        }
+    }
+
+    @Override
     public void editBook(Book book) throws ServiceException {
         if (book == null) {
             throw new ServiceException("SERVICE ERROR: book is not exist");
