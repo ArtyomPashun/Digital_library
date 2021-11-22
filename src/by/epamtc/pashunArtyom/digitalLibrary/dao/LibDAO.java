@@ -3,7 +3,7 @@ package by.epamtc.pashunArtyom.digitalLibrary.dao;
 import by.epamtc.pashunArtyom.digitalLibrary.dao.exception.DAOException;
 import by.epamtc.pashunArtyom.digitalLibrary.entity.Book;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public interface LibDAO {
@@ -12,8 +12,9 @@ public interface LibDAO {
 
     void removeBook(int bookId) throws DAOException;
 
-    void editBook() throws DAOException;
+    void editBook(int bookId, String newBookTitle, String newAuthorName) throws DAOException;
 
-    ArrayList<Book> find(String bookTitle) throws DAOException;
+    Book findBook(String bookTitle) throws DAOException;
 
+    List<Book> findAllBooks() throws DAOException;
 }

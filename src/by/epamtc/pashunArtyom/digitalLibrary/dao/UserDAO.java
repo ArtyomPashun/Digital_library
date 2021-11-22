@@ -5,7 +5,9 @@ import by.epamtc.pashunArtyom.digitalLibrary.entity.User;
 
 public interface UserDAO {
 
-    void register(User user) throws DAOException;
+    void register(User newUser) throws DAOException;
 
-    void authorize(String login, String password) throws DAOException;
+    void delete(String login, String password) throws DAOException;
+
+    boolean logIn(String login, String password) throws DAOException;
 }

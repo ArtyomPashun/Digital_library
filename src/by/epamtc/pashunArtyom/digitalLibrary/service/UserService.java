@@ -5,7 +5,9 @@ import by.epamtc.pashunArtyom.digitalLibrary.service.exception.ServiceException;
 
 public interface UserService {
 
-    void signIn(String userLogin, String userPassword) throws ServiceException;
-
     void register(User user) throws ServiceException;
+
+    void delete(String login, String password) throws ServiceException;
+
+    boolean logIn(String login, String password) throws ServiceException;
 }

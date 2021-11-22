@@ -3,13 +3,17 @@ package by.epamtc.pashunArtyom.digitalLibrary.service;
 import by.epamtc.pashunArtyom.digitalLibrary.entity.Book;
 import by.epamtc.pashunArtyom.digitalLibrary.service.exception.ServiceException;
 
+import java.util.List;
+
 public interface LibService {
 
-    void addBook(Book book) throws ServiceException;
+    boolean addBook(Book book) throws ServiceException;
 
-    void removeBook(int bookId) throws ServiceException;
+    boolean removeBook(int bookId) throws ServiceException;
 
-    void editBook(Book book) throws ServiceException;
+    boolean editBook(int bookId, String newBookTitle, String newAuthorName) throws ServiceException;
 
-    String findBook(String bookTitle) throws ServiceException;
+    Book findBook(String bookTitle) throws ServiceException;
+
+    List<Book> findAllBooks() throws ServiceException;
 }

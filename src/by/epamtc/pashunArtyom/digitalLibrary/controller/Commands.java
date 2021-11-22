@@ -12,7 +12,7 @@ public class Commands {
 
     public Commands() {
         commands.put(CommandName.ADD_BOOK, new AddBook());
-        commands.put(CommandName.EDIT_BOOK, new EditBook());
+        //commands.put(CommandName.EDIT_BOOK, new EditBook());
         commands.put(CommandName.FIND_BOOK, new FindBook());
         commands.put(CommandName.REGISTER, new Register());
         commands.put(CommandName.SIGN_IN, new SignIn());

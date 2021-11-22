@@ -42,10 +42,6 @@ public class Book implements Serializable {
         this.authorName = authorName;
     }
 
-    public String getAllBookInformation() {
-        return getBookId() + " " + getBookTitle() + " " + getAuthorName();
-    }
-
     @Override
     public int hashCode() {
         final int prime = 22;

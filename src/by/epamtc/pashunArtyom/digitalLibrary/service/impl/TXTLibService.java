@@ -6,12 +6,12 @@ import by.epamtc.pashunArtyom.digitalLibrary.entity.Book;
 import by.epamtc.pashunArtyom.digitalLibrary.service.LibService;
 import by.epamtc.pashunArtyom.digitalLibrary.service.exception.ServiceException;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class TXTLibService implements LibService {
 
     @Override
-    public void addBook(Book book) throws ServiceException {
+    public boolean addBook(Book book) throws ServiceException {
         if (book == null) {
             throw new ServiceException("SERVICE ERROR: book is not exist");
         }
@@ -23,57 +23,65 @@ public class TXTLibService implements LibService {
         }
         try {
             DAOFactory.getFactoryLink().getTxtBooksDAO().addBook(book);
-        } catch (DAOException | NullPointerException e) {
+        } catch (DAOException e) {
             throw new ServiceException("SERVICE ERROR: you could not add book");
         }
+        return false;
     }
 
     @Override
-    public void removeBook(int bookId) throws ServiceException {
+    public boolean removeBook(int bookId) throws ServiceException {
         if (bookId <= 0)
             throw new ServiceException("SERVICE ERROR: incorrect bookId input");
         try {
             DAOFactory.getFactoryLink().getTxtBooksDAO().removeBook(bookId);
-        } catch (DAOException | NullPointerException e) {
+        } catch (DAOException e) {
             throw new ServiceException("SERVICE ERROR: can not remove this book or incorrect bookId input");
         }
+        return false;
     }
 
     @Override
-    public void editBook(Book book) throws ServiceException {
-        if (book == null) {
-            throw new ServiceException("SERVICE ERROR: book is not exist");
-        }
-        if (book.getBookTitle() == null || book.getBookTitle().isEmpty()) {
+    public boolean editBook(int bookId, String newBookTitle, String newBookAuthor) throws ServiceException {
+        if (bookId <= 0)
+            throw new ServiceException("SERVICE ERROR: incorrect bookId input");
+        if (newBookTitle == null) {
             throw new ServiceException("SERVICE ERROR: incorrect bookTitle input");
         }
-        if (book.getAuthorName() == null || book.getAuthorName().isEmpty()) {
+        if (newBookAuthor == null) {
             throw new ServiceException("SERVICE ERROR: incorrect bookAuthorName input");
         }
         try {
-            DAOFactory.getFactoryLink().getTxtBooksDAO().editBook();
-        } catch (DAOException | NullPointerException e) {
+            DAOFactory.getFactoryLink().getTxtBooksDAO().editBook(bookId, newBookTitle, newBookAuthor);
+        } catch (DAOException e) {
             throw new ServiceException("SERVICE ERROR: book edit error");
         }
+        return false;
     }
 
     @Override
-    public String findBook(String bookTitle) throws ServiceException {
+    public Book findBook(String bookTitle) throws ServiceException {
+        Book book;
         if (bookTitle == null || bookTitle.isEmpty()) {
             throw new ServiceException("SERVICE ERROR: incorrect bookTitle input");
         }
-        StringBuilder sb = new StringBuilder();
-
         try {
-            ArrayList<Book> bookResult = DAOFactory.getFactoryLink().getTxtBooksDAO().find(bookTitle);
-            for (Book book : bookResult) {
-                sb.append(book.toString()).append("\n");
-            }
-        } catch (DAOException | NullPointerException e) {
+            book = DAOFactory.getFactoryLink().getTxtBooksDAO().findBook(bookTitle);
+        } catch (DAOException e) {
             throw new ServiceException("SERVICE ERROR: Book finding error");
         }
-        if (sb == null | sb.length() == 0)
-            return "There is no book with such bookTitle in library";
-        return sb.toString();
+        return book;
+    }
+
+    @Override
+    public List<Book> findAllBooks() throws ServiceException {
+        List<Book> bookList;
+
+        try {
+            bookList = DAOFactory.getFactoryLink().getTxtBooksDAO().findAllBooks();
+        } catch (DAOException e) {
+            throw new ServiceException("SERVICE ERROR: Showing all books error", e);
+        }
+        return bookList;
     }
 }
