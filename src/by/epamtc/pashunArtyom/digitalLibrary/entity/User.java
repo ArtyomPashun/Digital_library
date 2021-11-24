@@ -2,7 +2,7 @@ package by.epamtc.pashunArtyom.digitalLibrary.entity;
 
 import java.io.Serializable;
 
-public class User implements Serializable, Comparable {
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1146217472146721476L;
     private String userLogin;
@@ -69,11 +69,5 @@ public class User implements Serializable, Comparable {
                 + "userLogin: " + userLogin
                 + "userPassword: " + userPassword
                 + "userRole" + userRole;
-    }
-
-    @Override
-    public int compareTo(Object obj) {
-        User user = (User) obj;
-        return userLogin.compareTo(user.getUserLogin());
     }
 }
