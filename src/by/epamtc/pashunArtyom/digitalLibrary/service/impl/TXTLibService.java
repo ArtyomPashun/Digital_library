@@ -5,6 +5,7 @@ import by.epamtc.pashunArtyom.digitalLibrary.dao.exception.DAOException;
 import by.epamtc.pashunArtyom.digitalLibrary.entity.Book;
 import by.epamtc.pashunArtyom.digitalLibrary.service.LibService;
 import by.epamtc.pashunArtyom.digitalLibrary.service.exception.ServiceException;
+import by.epamtc.pashunArtyom.digitalLibrary.service.validation.BookValidator;
 
 import java.util.List;
 
@@ -12,66 +13,72 @@ public class TXTLibService implements LibService {
 
     @Override
     public boolean addBook(Book book) throws ServiceException {
-        if (book == null) {
-            throw new ServiceException("SERVICE ERROR: book is not exist");
+        boolean isInputValid = false;
+        BookValidator bookValidator = new BookValidator();
+
+        if (bookValidator.isTitleValid(book.getBookTitle()) && bookValidator.isAuthorValid(book.getAuthorName())) {
+            DAOFactory daoObjectFactory = DAOFactory.getFactoryLink();
+            try {
+                daoObjectFactory.getTxtBooksDAO().addBook(book);
+                isInputValid = true;
+            } catch (DAOException e) {
+                throw new ServiceException("SERVICE ERROR: Book adding error", e);
+            }
         }
-        if (book.getBookTitle() == null || book.getBookTitle().isEmpty()) {
-            throw new ServiceException("SERVICE ERROR: incorrect bookTitle input");
-        }
-        if (book.getAuthorName() == null || book.getAuthorName().isEmpty()) {
-            throw new ServiceException("SERVICE ERROR: incorrect bookAuthorName input");
-        }
-        try {
-            DAOFactory.getFactoryLink().getTxtBooksDAO().addBook(book);
-        } catch (DAOException e) {
-            throw new ServiceException("SERVICE ERROR: you could not add book");
-        }
-        return false;
+        return isInputValid;
     }
 
     @Override
     public boolean removeBook(int bookId) throws ServiceException {
-        if (bookId <= 0)
-            throw new ServiceException("SERVICE ERROR: incorrect bookId input");
-        try {
-            DAOFactory.getFactoryLink().getTxtBooksDAO().removeBook(bookId);
-        } catch (DAOException e) {
-            throw new ServiceException("SERVICE ERROR: can not remove this book or incorrect bookId input");
+        boolean isInputValid = false;
+        BookValidator bookValidator = new BookValidator();
+
+        if (bookValidator.isIdValid(bookId)) {
+            DAOFactory daoObjectFactory = DAOFactory.getFactoryLink();
+            try {
+                daoObjectFactory.getTxtBooksDAO().removeBook(bookId);
+                isInputValid = true;
+            } catch (DAOException e) {
+                throw new ServiceException("SERVICE ERROR: Book deleting error", e);
+            }
         }
-        return false;
+        return isInputValid;
     }
 
     @Override
     public boolean editBook(int bookId, String newBookTitle, String newBookAuthor) throws ServiceException {
-        if (bookId <= 0)
-            throw new ServiceException("SERVICE ERROR: incorrect bookId input");
-        if (newBookTitle == null) {
-            throw new ServiceException("SERVICE ERROR: incorrect bookTitle input");
+        boolean isInputValid = false;
+        BookValidator bookValidator = new BookValidator();
+
+        if (bookValidator.isIdValid(bookId) && bookValidator.isTitleValid(newBookTitle) &&
+                bookValidator.isAuthorValid(newBookAuthor)) {
+            DAOFactory daoObjectFactory = DAOFactory.getFactoryLink();
+            try {
+                daoObjectFactory.getTxtBooksDAO().editBook(bookId, newBookTitle, newBookAuthor);
+                isInputValid = true;
+            } catch (DAOException e) {
+                throw new ServiceException("SERVICE ERROR: Book editing error", e);
+            }
         }
-        if (newBookAuthor == null) {
-            throw new ServiceException("SERVICE ERROR: incorrect bookAuthorName input");
-        }
-        try {
-            DAOFactory.getFactoryLink().getTxtBooksDAO().editBook(bookId, newBookTitle, newBookAuthor);
-        } catch (DAOException e) {
-            throw new ServiceException("SERVICE ERROR: book edit error");
-        }
-        return false;
+        return isInputValid;
     }
 
     @Override
     public Book findBook(String bookTitle) throws ServiceException {
-        Book book;
-        if (bookTitle == null || bookTitle.isEmpty()) {
-            throw new ServiceException("SERVICE ERROR: incorrect bookTitle input");
-        }
-        try {
-            book = DAOFactory.getFactoryLink().getTxtBooksDAO().findBook(bookTitle);
-        } catch (DAOException e) {
-            throw new ServiceException("SERVICE ERROR: Book finding error");
+        Book book = null;
+        BookValidator bookValidator = new BookValidator();
+
+        if (bookValidator.isTitleValid(bookTitle)) {
+            DAOFactory daoObjectFactory = DAOFactory.getFactoryLink();
+            try {
+                book = daoObjectFactory.getTxtBooksDAO().findBook(bookTitle);
+            } catch (DAOException e) {
+                throw new ServiceException("SERVICE ERROR: Book finding error", e);
+            }
         }
         return book;
     }
+
 
     @Override
     public List<Book> findAllBooks() throws ServiceException {
