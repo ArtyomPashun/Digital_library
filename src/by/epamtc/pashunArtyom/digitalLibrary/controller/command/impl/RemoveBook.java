@@ -12,7 +12,7 @@ public class RemoveBook extends AbsCommand {
     public String execute(String request) throws ControllerException {
         String response;
 
-        if (currentUser.getUserRole() != UserRole.ADMIN) {
+        if (currentUser.getUserRole() == UserRole.ADMIN) {
             response = "You have no permission to delete books in the library";
         } else {
             ServiceFactory serviceFactory = ServiceFactory.getServiceLink();

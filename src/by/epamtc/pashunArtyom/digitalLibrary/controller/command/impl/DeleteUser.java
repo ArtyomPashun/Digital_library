@@ -28,8 +28,8 @@ public class DeleteUser extends AbsCommand {
             TXTUserService clientService = serviceFactory.getClientService();
 
             try {
-              clientService.delete(login, password);
-                    response = "User is deleted";
+                clientService.delete(login, password);
+                response = "User is deleted";
             } catch (ServiceException e) {
                 response = "deleting error";
                 throw new ControllerException("CRR ERROR: Error during user deleting", e);

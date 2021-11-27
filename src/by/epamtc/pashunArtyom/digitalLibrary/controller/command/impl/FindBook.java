@@ -15,9 +15,9 @@ public class FindBook extends AbsCommand {
     public String execute(String request) throws ServiceException, ControllerException {
         String response;
 
-        /*if (currentUser.getUserRole() == UserRole.GUEST)
+        if (currentUser.getUserRole() == UserRole.GUEST)
             response = "You have no permission to search books in the library";
-        else {*/
+        else {
             ServiceFactory serviceFactory = ServiceFactory.getServiceLink();
             TXTLibService libraryService = serviceFactory.getBookService();
             try {
@@ -32,7 +32,7 @@ public class FindBook extends AbsCommand {
             } catch (ServiceException e) {
                 throw new ControllerException("CRR ERROR: Error during book searching", e);
             }
-        //}
+        }
         return response;
     }
 }

@@ -30,7 +30,8 @@ public class SignInUser extends AbsCommand {
                 } else {
                     currentUser = user;
                     response = currentUser.getUserRole() == UserRole.GUEST ? "Wrong login or password"
-                            : "Welcome, " + currentUser.getUserLogin() + "!";}
+                            : "Welcome, " + currentUser.getUserLogin() + "!";
+                }
             } catch (ServiceException e) {
                 throw new ControllerException("CRR ERROR: Can not log in", e);
             }
