@@ -2,6 +2,7 @@ package by.epamtc.pashunArtyom.digitalLibrary.service.impl;
 
 import by.epamtc.pashunArtyom.digitalLibrary.dao.DAOFactory;
 import by.epamtc.pashunArtyom.digitalLibrary.dao.exception.DAOException;
+import by.epamtc.pashunArtyom.digitalLibrary.dao.impl.TXTUserDAO;
 import by.epamtc.pashunArtyom.digitalLibrary.entity.User;
 import by.epamtc.pashunArtyom.digitalLibrary.service.UserService;
 import by.epamtc.pashunArtyom.digitalLibrary.service.exception.ServiceException;
@@ -10,7 +11,7 @@ import by.epamtc.pashunArtyom.digitalLibrary.service.validation.UserValidator;
 public class TXTUserService implements UserService {
 
     @Override
-    public void register(User user) throws ServiceException {
+    public User register(User user) throws ServiceException {
         UserValidator userValidator = new UserValidator();
 
         if (userValidator.isLoginValid(user.getUserLogin()) &&
@@ -22,6 +23,7 @@ public class TXTUserService implements UserService {
                 throw new ServiceException("SERVICE ERROR: user can not be registered", e);
             }
         }
+        return user;
     }
 
     @Override
@@ -40,21 +42,23 @@ public class TXTUserService implements UserService {
     }
 
     @Override
-    public boolean logIn(String userLogin, String userPassword) throws ServiceException {
-        boolean isLogIn = false;
+    public User logIn(String userLogin, String userPassword) throws ServiceException {
+        User user = null;
         UserValidator userValidator = new UserValidator();
 
         if (userValidator.isPasswordValid(userPassword) &&
                 userValidator.isLoginValid(userLogin)) {
             DAOFactory daoObjectFactory = DAOFactory.getFactoryLink();
+            TXTUserDAO txtUserDAO = daoObjectFactory.getTxtUsersDAO();
+
             try {
-                daoObjectFactory.getTxtUsersDAO().logIn(userLogin, userPassword);
-                isLogIn = true;
+                user = txtUserDAO.logIn(userLogin, userPassword);
+
             } catch (DAOException e) {
                 throw new ServiceException("SERVICE ERROR: User log in error", e);
             }
         }
-        return isLogIn;
+        return user;
     }
 }
 

@@ -5,18 +5,25 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1146217472146721476L;
+    private static User guestInstance;
     private String userLogin;
     private String userPassword;
     private UserRole userRole;
 
     public User() {
-        this.userRole = UserRole.USER;
+        this.userRole = UserRole.GUEST;
     }
 
     public User(String userLogin, String userPassword) {
         this.userLogin = userLogin;
         this.userPassword = userPassword;
         this.userRole = UserRole.USER;
+    }
+
+    public static User getGuestInstance() {
+        if (guestInstance == null)
+            guestInstance = new User();
+        return guestInstance;
     }
 
     public String getUserLogin() {
@@ -68,6 +75,6 @@ public class User implements Serializable {
         return getClass().getName() + "@"
                 + "userLogin: " + userLogin
                 + "userPassword: " + userPassword
-                + "userRole" + userRole;
+                + "userRole: " + userRole;
     }
 }

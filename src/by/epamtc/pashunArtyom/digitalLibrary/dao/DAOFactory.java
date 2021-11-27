@@ -6,8 +6,8 @@ import by.epamtc.pashunArtyom.digitalLibrary.dao.impl.TXTUserDAO;
 public class DAOFactory {
 
     private static final DAOFactory factoryLink = new DAOFactory();
-    private final LibDAO txtBookDAO = new TXTLibDAO();
-    private final UserDAO txtUserDAO = new TXTUserDAO();
+    private final TXTLibDAO txtBookDAO = new TXTLibDAO();
+    private final TXTUserDAO txtUserDAO = new TXTUserDAO();
 
     public DAOFactory() {
     }
@@ -16,11 +16,11 @@ public class DAOFactory {
         return factoryLink;
     }
 
-    public LibDAO getTxtBooksDAO() {
+    public TXTLibDAO getTxtBooksDAO() {
         return txtBookDAO;
     }
 
-    public UserDAO getTxtUsersDAO() {
+    public TXTUserDAO getTxtUsersDAO() {
         return txtUserDAO;
     }
 }

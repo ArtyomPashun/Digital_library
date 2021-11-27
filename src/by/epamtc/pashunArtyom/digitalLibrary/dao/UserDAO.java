@@ -9,5 +9,5 @@ public interface UserDAO {
 
     void delete(String login, String password) throws DAOException;
 
-    boolean logIn(String login, String password) throws DAOException;
+    User logIn(String login, String password) throws DAOException;
 }

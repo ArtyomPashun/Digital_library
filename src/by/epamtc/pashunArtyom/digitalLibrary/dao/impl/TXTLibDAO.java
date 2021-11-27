@@ -2,6 +2,7 @@ package by.epamtc.pashunArtyom.digitalLibrary.dao.impl;
 
 import by.epamtc.pashunArtyom.digitalLibrary.dao.LibDAO;
 import by.epamtc.pashunArtyom.digitalLibrary.dao.exception.DAOException;
+import by.epamtc.pashunArtyom.digitalLibrary.dao.properties.PropertiesHolder;
 import by.epamtc.pashunArtyom.digitalLibrary.entity.Book;
 
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class TXTLibDAO implements LibDAO {
 
-    public final static String PATH_TO_LIBRARY = "./resources/library.txt";
+    public final static String PATH_TO_LIBRARY = PropertiesHolder.getProperty("BOOKS_FILE_PATH");
     public final static String DELIMITER = "/";
 
     @Override

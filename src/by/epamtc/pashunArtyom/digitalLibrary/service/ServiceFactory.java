@@ -5,11 +5,11 @@ import by.epamtc.pashunArtyom.digitalLibrary.service.impl.TXTUserService;
 
 public class ServiceFactory {
 
-    public static ServiceFactory serviceLink = new ServiceFactory();
-    TXTLibService bookService = new TXTLibService();
-    TXTUserService userService = new TXTUserService();
+    private static final ServiceFactory serviceLink = new ServiceFactory();
+    private final TXTLibService bookService = new TXTLibService();
+    private final TXTUserService userService = new TXTUserService();
 
-    private ServiceFactory() {
+    public ServiceFactory() {
     }
 
     public static ServiceFactory getServiceLink() {
@@ -20,7 +20,7 @@ public class ServiceFactory {
         return bookService;
     }
 
-    public UserService getClientService() {
+    public TXTUserService getClientService() {
         return userService;
     }
 }

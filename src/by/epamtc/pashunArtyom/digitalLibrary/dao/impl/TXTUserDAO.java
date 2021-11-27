@@ -2,6 +2,7 @@ package by.epamtc.pashunArtyom.digitalLibrary.dao.impl;
 
 import by.epamtc.pashunArtyom.digitalLibrary.dao.UserDAO;
 import by.epamtc.pashunArtyom.digitalLibrary.dao.exception.DAOException;
+import by.epamtc.pashunArtyom.digitalLibrary.dao.properties.PropertiesHolder;
 import by.epamtc.pashunArtyom.digitalLibrary.entity.User;
 import by.epamtc.pashunArtyom.digitalLibrary.entity.UserRole;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class TXTUserDAO implements UserDAO {
 
-    public final static String PATH_TO_USER_LIST = "./resources/users.txt";
+    public final static String PATH_TO_USER_LIST = PropertiesHolder.getProperty("USERS_FILE_PATH");
     public final static String DELIMITER = "/";
 
     @Override
@@ -55,21 +56,20 @@ public class TXTUserDAO implements UserDAO {
     }
 
     @Override
-    public boolean logIn(String login, String password) throws DAOException {
+    public User logIn(String login, String password) throws DAOException {
+        User user = User.getGuestInstance();
         List<User> userList;
-        boolean isLogIn = false;
 
         try {
             userList = scanUsersFromFile();
             for (User value : userList)
                 if (login.equals(value.getUserLogin()) && password.equals(value.getUserPassword())) {
-                    isLogIn = true;
-                    break;
+                    user = value;
                 }
         } catch (IOException | NumberFormatException e) {
             throw new DAOException("DAO ERROR: Authorization process error", e);
         }
-        return isLogIn;
+        return user;
     }
 
     public List<User> scanUsersFromFile() throws DAOException, IOException {
