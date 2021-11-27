@@ -5,8 +5,8 @@ import java.util.regex.Pattern;
 
 public class BookValidator {
     private final static String ID_PATTERN = "^\\d{1,10}$";
-    private final static String TITLE_PATTERN = "^[\\w-]{5,16}$";
-    private final static String AUTHOR_PATTERN = "^[\\a-zA-Z_-]{2,20}$";
+    private final static String TITLE_PATTERN = "^[\\w-]{5,30}$";
+    private final static String AUTHOR_PATTERN = "^[\\a-zA-Z_-]{2,30}$";
 
     public boolean isTitleValid(String title) {
         return isArgValid(TITLE_PATTERN, title);

@@ -64,9 +64,8 @@ public class Book implements Serializable {
 
     @Override
     public String toString() {
-        return getClass().getName() + "@"
-                + "bookId: " + bookId
-                + "bookTitle:  " + bookTitle
-                + "authorName: " + authorName;
+        return "bookId: " + bookId
+                + " bookTitle:  " + bookTitle
+                + " authorName: " + authorName;
     }
 }

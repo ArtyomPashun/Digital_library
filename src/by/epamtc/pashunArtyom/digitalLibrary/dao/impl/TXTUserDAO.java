@@ -62,10 +62,11 @@ public class TXTUserDAO implements UserDAO {
 
         try {
             userList = scanUsersFromFile();
-            for (User value : userList)
+            for (User value : userList) {
                 if (login.equals(value.getUserLogin()) && password.equals(value.getUserPassword())) {
                     user = value;
                 }
+            }
         } catch (IOException | NumberFormatException e) {
             throw new DAOException("DAO ERROR: Authorization process error", e);
         }
@@ -94,7 +95,7 @@ public class TXTUserDAO implements UserDAO {
 
     public void addUsersInformationInFile(List<User> userList) throws DAOException {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(PATH_TO_USER_LIST, false));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(PATH_TO_USER_LIST, true));
             for (User u : userList) {
                 writer.append(String.valueOf(u.getUserLogin())).append(DELIMITER)
                         .append(u.getUserPassword()).append(DELIMITER)

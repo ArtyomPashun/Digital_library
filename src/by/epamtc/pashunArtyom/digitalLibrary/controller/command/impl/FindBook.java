@@ -15,13 +15,13 @@ public class FindBook extends AbsCommand {
     public String execute(String request) throws ServiceException, ControllerException {
         String response;
 
-        if (currentUser.getUserRole() == UserRole.GUEST)
+        /*if (currentUser.getUserRole() == UserRole.GUEST)
             response = "You have no permission to search books in the library";
-        else {
+        else {*/
             ServiceFactory serviceFactory = ServiceFactory.getServiceLink();
             TXTLibService libraryService = serviceFactory.getBookService();
             try {
-                Book bookList = libraryService.findBook(request.toUpperCase());
+                Book bookList = libraryService.findBook(request);
                 if (bookList == null)
                     response = "Invalid input parameters!";
                 else {
@@ -32,7 +32,7 @@ public class FindBook extends AbsCommand {
             } catch (ServiceException e) {
                 throw new ControllerException("CRR ERROR: Error during book searching", e);
             }
-        }
+        //}
         return response;
     }
 }

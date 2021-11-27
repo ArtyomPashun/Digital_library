@@ -1,0 +1,2 @@
+admin/admin/ADMIN
+user1/user1/USER

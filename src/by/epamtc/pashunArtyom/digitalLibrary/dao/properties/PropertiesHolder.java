@@ -7,8 +7,8 @@ public class PropertiesHolder {
     private static final Map<String, String> properties = new HashMap<>();
 
     static {
-        properties.put("USERS_FILE_PATH", "resources/users.txt");
-        properties.put("BOOKS_FILE_PATH", "resources/library.txt");
+        properties.put("USERS_FILE_PATH", "src/resources/users.txt");
+        properties.put("BOOKS_FILE_PATH", "src/resources/library.txt");
     }
 
     public static String getProperty(String key) {
